@@ -15,3 +15,13 @@ def save_listings(listings):
         cursor.execute('INSERT INTO listings(title, price, contact) VALUES(?, ?, ?)', (listing['title'], listing['price'], listing['contact']))
         conn.commit()
         conn.close()
+
+# Filter/Analyze
+def filter_listings(min_price, max_price):
+    conn = sqlite3.connect('real_estate.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM listings WHERE price BETWEEN ? AND ?', (min_price, max_price))
+    filtered_listings = cursor.fethchall()
+    conn.close()
+    
+    return filtered_listings
